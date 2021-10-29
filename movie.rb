@@ -17,3 +17,14 @@ class Movie
     "#{@title} has a rank of #{@rank}"
   end
 end
+
+movie1 = Movie.new("goonies", 10)
+movie2 = Movie.new("ghostbusters", 9)
+movie3 = Movie.new("goldfinger", 5)
+
+movies = [movie1, movie2, movie3]
+
+movies.each do |movie|
+  movie.thumbs_up
+  puts movie
+end
