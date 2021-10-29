@@ -1,37 +1,66 @@
 class Project
 
   attr_accessor :name
-  attr_reader :inititalf, :targetf
-  
-  def initialize(name, inititalf, targetf)
+  attr_reader :funding, :target
+
+  def initialize(name, target_funding_amount, funding=0)
     @name = name
-    @inititalf = inititalf
-    @targetf = targetf
+    @target = target_funding_amount
+    @funding = funding
   end
-
-  def totalf
-    return @targetf - @inititalf
-  end
-
+  
   def to_s
-    "#{@name} has $#{@inititalf} in funding towards a goal of $#{@targetf}."
+    "#{@name} has $#{@funding} in funding towards a goal of $#{@target}." 
   end
 
-  def loss
-    @inititalf -= 15
-    puts "#{name} has lost funds!"
+  def remove_funds
+    @funding -= 15
+    puts "#{@name} lost some funds!"
   end
-
-  def gain
-    @inititalf += 25
-    puts "#{name} has gained funds!"
+  
+  def add_funds
+    @funding += 25
+    puts "#{@name} got more funds!"
   end
+  
+  def total_funding_outstanding
+    @target - @funding
+  end
+  
 end
 
+project1 = Project.new("Project ABC", 5000, 1000)
+project2 = Project.new("Project LMN", 3000, 500)
+project3 = Project.new("Project XYZ", 75, 25)
 
-p1 = Project.new("Project 1", 500, 3000)
-p2 = Project.new("Project 2", 5000, 25000)
-p3 = Project.new("Project 3", 100, 1000)
+projects = [project1, project2, project3]
 
-puts p3.inititalf
-puts p3.totalf
+puts "There are #{projects.size} projects that you could fund:"
+projects.each do |project|
+  puts project
+end
+
+puts "***"
+
+puts "Here are the target funding amounts of each project:"
+projects.each do |project|
+  puts project.target
+end
+
+puts "***"
+
+puts "Let's go through a round of funding requests and see what happens:"
+projects.each do |project|
+  project.add_funds
+  project.remove_funds
+  project.add_funds
+  puts project
+end
+
+puts "***"
+
+puts "Project ABC is removed and Project TBD is added. Now we have:"
+projects.delete(project1)
+project4 = Project.new("Project TBD", 10000)
+projects.push(project4)
+puts projects
