@@ -1,5 +1,5 @@
 class Movie
-  
+
   attr_accessor :title
   attr_reader :rank
   
@@ -16,8 +16,16 @@ class Movie
     @rank -= 1
   end
   
+  def hit?
+    @rank >= 10
+  end
+  
+  def status
+    hit? ? "Hit": "Flop"
+  end
+  
   def to_s
-    "#{@title} has a rank of #{@rank}."
+    "#{@title} has a rank of #{@rank} (#{status})"
   end
 end
 
